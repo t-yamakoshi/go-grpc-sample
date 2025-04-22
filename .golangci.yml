@@ -1,0 +1,15 @@
+linters:
+  settings:
+    asasalint:
+      # To specify a set of function names to exclude.
+      # The values are merged with the builtin exclusions.
+      # The builtin exclusions can be disabled by setting `use-builtin-exclusions` to `false`.
+      # Default: ["^(fmt|log|logger|t|)\.(Print|Fprint|Sprint|Fatal|Panic|Error|Warn|Warning|Info|Debug|Log)(|f|ln)$"]
+      exclude:
+        - Append
+        - \.Wrapf
+      # To enable/disable the asasalint builtin exclusions of function names.
+      # See the default value of `exclude` to get the builtin exclusions.
+      # Default: true
+      use-builtin-exclusions: false
+
