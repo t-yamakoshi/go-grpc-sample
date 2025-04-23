@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package todo;
+package schema.proto.v1;
+
+option go_package = "github.com/t-yamakoshi/go-grpc-sample/pkg/adapter/grpcgen";
 
 service TodoService {
   // Create a new Todo item
