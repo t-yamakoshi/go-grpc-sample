@@ -35,3 +35,7 @@ proto_gen:
 .PHONY: run
 run:
 	go run ./cmd/main.go
+
+.PHONY: actions-dry-run
+actions-dry-run:
+	act -n

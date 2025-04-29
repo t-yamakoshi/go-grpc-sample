@@ -15,7 +15,11 @@ import (
 )
 
 func main() {
-	config := config.NewConfig()
+	config, err := config.NewConfig()
+	if err != nil {
+		log.Printf("Error loading config: %v", err)
+		os.Exit(1)
+	}
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Port))
 	if err != nil {
 		log.Printf("Error starting server: %v", err)
