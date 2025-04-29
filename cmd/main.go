@@ -10,12 +10,13 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/t-yamakoshi/go-grpc-sample/pkg/adapter/grpcgen"
+	"github.com/t-yamakoshi/go-grpc-sample/pkg/config"
 	"github.com/t-yamakoshi/go-grpc-sample/pkg/service"
 )
 
 func main() {
-	port := 8080
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	config := config.NewConfig()
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Port))
 	if err != nil {
 		log.Printf("Error starting server: %v", err)
 		os.Exit(1)
@@ -28,7 +29,7 @@ func main() {
 	grpcgen.RegisterTodoServiceServer(s, todoService)
 
 	go func() {
-		log.Printf("Starting server on port %d", port)
+		log.Printf("Starting server on port %d", config.Port)
 		s.Serve(listener)
 	}()
 
