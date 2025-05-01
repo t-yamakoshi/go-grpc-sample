@@ -3,16 +3,21 @@ package main
 import (
 	"log"
 
-	"gorm.io/driver/mysql"
+	mysqlDriver "gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
 
-	schema "github.com/t-yamakoshi/go-grpc-sample/schema/mysql"
+	"github.com/t-yamakoshi/go-grpc-sample/schema/mysql"
 )
+
+type Querier interface {
+	// SELECT * FROM @@table WHERE id = @id
+	GetByID(id int64) (gen.T, error)
+}
 
 func main() {
 	schemas := []any{
-		&schema.Todo{},
+		&mysql.Todo{},
 	}
 	g := gen.NewGenerator(
 		gen.Config{
@@ -24,17 +29,19 @@ func main() {
 		},
 	)
 
-	director := mysql.Open("root:@tcp(127.0.0.1:3306)/tododb?charset=utf8mb4&parseTime=True&loc=Local")
+	director := mysqlDriver.Open("root:@tcp(127.0.0.1:3306)/tododb?charset=utf8mb4&parseTime=True&loc=Local")
 	db, err := gorm.Open(director)
 	if err != nil {
 		log.Fatal("failed to connect to database:", err)
 	}
 
 	g.UseDB(db)
-	db.AutoMigrate(schemas...)
+	if err := db.AutoMigrate(schemas...); err != nil {
+		log.Fatal("failed to migrate database:", err)
+	}
 
 	g.ApplyBasic(schemas...)
-	g.ApplyInterface(func() {}, schemas...)
+	g.ApplyInterface(func(Querier) {}, schemas...)
 
 	g.Execute()
 }

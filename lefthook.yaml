@@ -2,3 +2,7 @@ pre-commit:
   commands:
     formatter:
       run: make format
+      description: "Run formatter"
+    lint:
+      run: make lint
+      description: "Run linter"
