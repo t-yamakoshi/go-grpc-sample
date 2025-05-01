@@ -3,10 +3,11 @@ package main
 import (
 	"log"
 
-	schema "github.com/t-yamakoshi/go-grpc-sample/schema/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
 	"gorm.io/gorm"
+
+	schema "github.com/t-yamakoshi/go-grpc-sample/schema/mysql"
 )
 
 func main() {

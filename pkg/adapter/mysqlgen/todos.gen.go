@@ -8,10 +8,11 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/t-yamakoshi/go-grpc-sample/schema/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"gorm.io/gorm/schema"
+
+	"github.com/t-yamakoshi/go-grpc-sample/schema/mysql"
 
 	"gorm.io/gen"
 	"gorm.io/gen/field"
