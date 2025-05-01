@@ -11,10 +11,12 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
-      MYSQL_DATABASE: tododb
+      MYSQL_DATABASE: "tododb"
       TZ: UTC
     volumes:
       - db:/var/lib/mysql
+    ports:
+      - "3306:3306"
 
 volumes:
   db:
