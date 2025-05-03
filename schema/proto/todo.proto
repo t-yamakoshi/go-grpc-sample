@@ -22,7 +22,7 @@ service TodoService {
 }
 
 message Todo {
-  string id = 1;
+  int64 id = 1;
   string title = 2;
   string description = 3;
   bool is_completed = 4;
@@ -38,7 +38,7 @@ message CreateTodoResponse {
 }
 
 message GetTodoRequest {
-  string id = 1;
+  int64 id = 1;
 }
 
 message GetTodoResponse {
@@ -46,7 +46,7 @@ message GetTodoResponse {
 }
 
 message UpdateTodoRequest {
-  string id = 1;
+  int64 id = 1;
   string title = 2;
   string description = 3;
   bool is_completed = 4;
@@ -57,11 +57,11 @@ message UpdateTodoResponse {
 }
 
 message DeleteTodoRequest {
-  string id = 1;
+  int64 id = 1;
 }
 
 message DeleteTodoResponse {
-  string id = 1;
+  int64 id = 1;
 }
 
 message ListTodosRequest {}

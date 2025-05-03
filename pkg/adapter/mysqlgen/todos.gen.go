@@ -7,6 +7,7 @@ package mysqlgen
 import (
 	"context"
 	"database/sql"
+	"strings"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -174,6 +175,23 @@ type ITodoDo interface {
 	Returning(value interface{}, columns ...string) ITodoDo
 	UnderlyingDB() *gorm.DB
 	schema.Tabler
+
+	GetByID(id int64) (result mysql.Todo, err error)
+}
+
+// SELECT * FROM @@table WHERE id = @id
+func (t todoDo) GetByID(id int64) (result mysql.Todo, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	params = append(params, id)
+	generateSQL.WriteString("SELECT * FROM todos WHERE id = ? ")
+
+	var executeSQL *gorm.DB
+	executeSQL = t.UnderlyingDB().Raw(generateSQL.String(), params...).Take(&result) // ignore_security_alert
+	err = executeSQL.Error
+
+	return
 }
 
 func (t todoDo) Debug() ITodoDo {

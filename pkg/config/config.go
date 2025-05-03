@@ -8,7 +8,12 @@ import (
 )
 
 type Config struct {
-	Port int `env:"PORT" envDefault:"443"`
+	MYSQL_HOST     string `env:"MYSQL_HOST" envDefault:"localhost"`
+	MYSQL_PORT     string `env:"MYSQL_PORT" envDefault:"3306"`
+	MYSQL_USER     string `env:"MYSQL_USER" envDefault:"root"`
+	MYSQL_PASSWORD string `env:"MYSQL_PASS"`
+	MYSQL_DB       string `env:"MYSQL_DB" envDefault:"todo"`
+	APP_PORT       int    `env:"APP_PORT" envDefault:"443"`
 }
 
 func NewConfig() (*Config, error) {
